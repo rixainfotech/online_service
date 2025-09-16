@@ -1,0 +1,51 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Courses - RIXA</title>
+  <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav">
+      <a class="brand" href="{% url 'home' %}">RIXA</a>
+      <nav class="nav-links">
+        <a href="{% url 'home' %}#home">Home</a>
+        <a href="{% url 'course-list' %}">Courses</a>
+      </nav>
+      <div class="nav-actions">
+        {% if user.is_authenticated %}
+          <form method="post" action="{% url 'logout' %}">{% csrf_token %}
+            <button class="btn btn-ghost">Logout</button>
+          </form>
+        {% else %}
+          <a class="btn btn-ghost" href="{% url 'login' %}">Login</a>
+          <a class="btn btn-primary" href="{% url 'register' %}">Register</a>
+        {% endif %}
+      </div>
+    </div>
+  </header>
+
+  <section class="section">
+    <div class="container">
+      <h2 class="section-title">Courses</h2>
+      <div class="grid cards">
+        {% for c in courses %}
+          <article class="card">
+            <h3>{{ c.title }}</h3>
+            <p class="muted">{{ c.short_desc }}</p>
+            <div class="meta"><span>Duration:</span> {{ c.duration_weeks }} weeks</div>
+            <a class="btn btn-success" href="{% url 'enroll' c.id %}">Enroll</a>
+          </article>
+        {% empty %}
+          <p class="muted">No courses yet.</p>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+  <script src="{% static 'app.js' %}"></script>
+  </body>
+  </html>
+
+

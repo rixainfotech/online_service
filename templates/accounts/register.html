@@ -1,0 +1,65 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Register - RIXA</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container nav">
+        <a class="brand" href="{% url 'home' %}">RIXA</a>
+        <nav class="nav-links">
+          <a href="{% url 'home' %}#home">Home</a>
+          <a href="{% url 'course-list' %}">Courses</a>
+        </nav>
+        <div class="nav-actions">
+          <a class="btn btn-ghost" href="{% url 'login' %}">Login</a>
+        </div>
+      </div>
+    </header>
+
+    <main class="section">
+      <div class="container" style="max-width:680px;">
+        <div class="card" style="padding:28px;">
+          <h2 style="margin:0 0 6px;">Create your account</h2>
+          <p class="muted" style="margin:0 0 18px;">Provide your details including UPI ID and UTR.</p>
+
+          {% if form.non_field_errors %}
+            <div class="form-errors">
+              {{ form.non_field_errors }}
+            </div>
+          {% endif %}
+
+          <form method="post" class="form">
+            {% csrf_token %}
+
+            {% for field in form %}
+              <div class="form-group">
+                <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                {{ field }}
+                {% if field.help_text %}
+                  <div class="muted" style="font-size:12px;">{{ field.help_text|safe }}</div>
+                {% endif %}
+                {% if field.errors %}
+                  <div class="field-error">{{ field.errors|striptags }}</div>
+                {% endif %}
+              </div>
+            {% endfor %}
+
+            <div class="form-actions">
+              <button class="btn btn-primary" type="submit">Register</button>
+              <a class="btn btn-ghost" href="{% url 'login' %}">Already have an account?</a>
+            </div>
+          </form>
+        </div>
+      </div>
+    </main>
+
+    <script src="{% static 'app.js' %}"></script>
+  </body>
+  </html>
+
+
