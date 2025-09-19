@@ -24,7 +24,7 @@ SECRET_KEY = "django-insecure-1@l1e4j)n&kblsyb12&3p1ht_=m7-0n5v#hq^@m^%d9omx)jss
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['testserver', '127.0.0.1', 'localhost', '52.65.199.118']
+ALLOWED_HOSTS = ['testserver', '127.0.0.1', 'localhost', '52.65.199.118','rixa.info','www.rixa.info','your-ec2-public-ip']
 
 # Application definition
 INSTALLED_APPS = [
@@ -66,6 +66,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = "rixa.wsgi.application"
+CSRF_TRUSTED_ORIGINS = ["https://rixa.info"]
 
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
